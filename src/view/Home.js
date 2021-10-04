@@ -1,8 +1,9 @@
 import React from 'react';
-import Nav from '../Nav';
-import Main from '../Main';
+import Nav from '../component/screen/Nav';
+import Main from '../component/Main';
 
 export default function Home() {
+ 
     return (
         <div className="outerWrap">
         <div className = "App">

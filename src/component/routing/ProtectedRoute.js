@@ -32,13 +32,15 @@ export default function ProtectedRoute({component: Component, ...rest}) {
         )
     }
     return (
-        <Route {...rest} render={props => isAuthenticated ? (
-            <>
-                <Component {...rest} {...props} />
-            </>
-        ) : (
-            <Redirect to='/login' />
-        )
+        <Route 
+            {...rest} 
+            render={props => isAuthenticated ? (
+                <>
+                    <Component {...rest} {...props} />
+                </>
+            ) : (
+                <Redirect to='/login' />
+            )
         } 
       />
     )

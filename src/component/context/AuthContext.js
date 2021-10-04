@@ -26,11 +26,17 @@ const AuthContextProvider = ({children}) => {
         }
 
         try {
-            const response = await axios.get(`${apiUrl}/auth`)
-            if (response.data.success) {
+            const response = await axios.get(`${apiUrl}auth`)
+            if (response.data.user) {
                 dispatch({
                     type: 'SET_AUTH',
                     payload: {isAuthenticated: true, user: response.data.user}
+                })
+            }
+            else{
+                dispatch({
+                    type: 'SET_AUTH',
+                    payload: {isAuthenticated: false, user:null}
                 })
             }
         } catch (error) {
@@ -43,12 +49,12 @@ const AuthContextProvider = ({children}) => {
         }
     }
 
-    useEffect(() => loadUser(), [])
+    useEffect(() => { loadUser(); }, []);
 
     // login
     const loginUser = async SignIn => {
         try {
-            const response = await axios.post(`${apiUrl}/auth/login`, SignIn)
+            const response = await axios.post(`${apiUrl}auth/login`, SignIn)
             if (response.data.success){
                 localStorage.setItem(LOCAL_STORAGE_TOKEN_NAME, response.data.PRIVATE_TOKEN)
 
@@ -68,7 +74,7 @@ const AuthContextProvider = ({children}) => {
     // register
     const RegisterUser = async Register => {
         try {
-            const response = await axios.post(`${apiUrl}/auth/register`, Register)
+            const response = await axios.post(`${apiUrl}auth/register`, Register)
             if(response.data.success){
                 localStorage.setItem(LOCAL_STORAGE_TOKEN_NAME, response.data.PRIVATE_TOKEN)
                 
@@ -80,7 +86,9 @@ const AuthContextProvider = ({children}) => {
                 return response.data
             }
         } catch (error) {
-            return ({message: error.message})
+            return ({
+                message: error.message
+            })
         }
     }
 
@@ -94,7 +102,26 @@ const AuthContextProvider = ({children}) => {
         })
     }
 
-    const authContextData = {loginUser, RegisterUser, logoutUser, authState}
+    //update profile
+
+    const UpdateProfile = async UpdateProfile => {
+        try {
+            const response = await axios.post(`${apiUrl}auth/update/${UpdateProfile.userId.userId}`, UpdateProfile)
+            if(response.data) {
+                dispatch({
+                    type: 'SET_AUTH',
+                    payload: {isAuthenticated: true, user: response.data.user}
+                })
+                return response.data
+            }
+        } catch(error){
+            return({
+                message: error.message
+            })
+        }
+    }
+
+    const authContextData = {loginUser, RegisterUser, logoutUser, authState, UpdateProfile}
 
     return (
         <AuthContext.Provider value={authContextData}>

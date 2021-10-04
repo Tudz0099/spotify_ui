@@ -1,15 +1,22 @@
 import React, {useContext} from 'react';
-import Images from './share/Img';
+import { Switch, Route, Link } from 'react-router-dom';
+import { apiUrl } from './context/constants';
 import UnopDropdown from "unop-react-dropdown";
 import {ReactComponent as ArrLeft} from './share/icons/arr_left.svg';
 import {ReactComponent as ArrRight} from './share/icons/arr_right.svg';
 import {ReactComponent as ArrDrop} from './share/icons/arr_drop.svg';
-import Card from './card/Card';
 import { AuthContext } from './context/AuthContext';
+import HomeList from './screen/HomeList';
+import Profile from './screen/Profile';
+import Library from './screen/Library';
+import Like from './screen/Like';
+import Search from './screen/Search';
+import PlayList from './screen/Playlist';
+
 
 export default function Main() {
 
-    const {authState: {user: {fullName}},
+    const {authState: {user: {fullName, avatar, _id}},
     logoutUser
     } = useContext(AuthContext)
 
@@ -32,7 +39,7 @@ export default function Main() {
                 <UnopDropdown trigger={
                     <button className = "btn_drop">
                         <figure>
-                        <img src={Images.PHOTO_1}
+                        <img src= {apiUrl + avatar}
                             alt="avatar"
                         />
                     </figure>
@@ -41,46 +48,25 @@ export default function Main() {
                     </button>
                 }>
                     <ul className= "drop_item">
-                        <li>Tài khoản</li>
-                        <li>Hồ sơ</li>
-                        <li onClick={logout}>Đăng xuất</li>
+                        <li className = "li_profile">Tài khoản</li>
+                        <Link to={"/profile/"+_id}  style={{ textDecoration: 'none' }}>
+                            <li className = "li_profile">Hồ sơ</li>
+                        </Link> 
+                        <li className = "li_profile"
+                       onClick={logout}
+                        >Đăng xuất</li>
                     </ul>
                 </UnopDropdown>
             </div>
             <div className="mainContent">
-                <div className="cardsWrap">
-                    <h2>Dành cho bạn</h2>
-                    <p className="description">Thêm nhiều gợi ý hay hơn khi bạn nghe nhiều hơn.</p>
-                    <div className="cardWrapInner">
-                        <Card/>
-                        <Card/>
-                        <Card/>
-                        <Card/>
-                        <Card/>
-                    </div>    
-                </div>
-                <div className="cardsWrap">
-                    <h2>Dành cho bạn</h2>
-                    <p className="description">Thêm nhiều gợi ý hay hơn khi bạn nghe nhiều hơn.</p>
-                    <div className="cardWrapInner">
-                        <Card/>
-                        <Card/>
-                        <Card/>
-                        <Card/>
-                        <Card/>
-                    </div>    
-                </div>
-                <div className="cardsWrap">
-                    <h2>Dành cho bạn</h2>
-                    <p className="description">Thêm nhiều gợi ý hay hơn khi bạn nghe nhiều hơn.</p>
-                    <div className="cardWrapInner">
-                        <Card/>
-                        <Card/>
-                        <Card/>
-                        <Card/>
-                        <Card/>
-                    </div>    
-                </div>
+                <Switch>
+                    <Route path='/home' exact component={HomeList}/>
+                    <Route path='/profile/:userId' component={Profile}/>
+                    <Route path='/search' component={Search}/>
+                    <Route path='/like' component={Like}/>
+                    <Route path='/library' component={Library}/>
+                    <Route path='/playlist' component={PlayList}/>
+                </Switch>
             </div>
         </div>
     )

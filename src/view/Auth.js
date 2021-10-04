@@ -1,8 +1,8 @@
 import React,{ useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import Register from '../auth/Register';
-import SignIn from '../auth/SignIn';
+import { AuthContext } from '../component/context/AuthContext';
+import Register from '../component/auth/Register';
+import SignIn from '../component/auth/SignIn';
 import { makeStyles } from '@material-ui/core/styles';
 import {CircularProgress} from '@material-ui/core';
 

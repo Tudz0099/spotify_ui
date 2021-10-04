@@ -4,6 +4,7 @@ import photo1 from './img/photo1.jpeg';
 import fb from './img/fb.png';
 import apple from './img/apple.png';
 import google from './img/google.png';
+import dieutoa from './img/dieutoa.jpeg'
 
 const Images = {
     LOGO_BLACK: logoSpotify,
@@ -11,7 +12,8 @@ const Images = {
     PHOTO_1: photo1,
     ICON_FB: fb,
     ICON_APPLE: apple,
-    ICON_GOOGLE: google
+    ICON_GOOGLE: google,
+    DIEU_TOA: dieutoa
 }
 
 export default Images;
