@@ -12,6 +12,7 @@ import Library from './screen/Library';
 import Like from './screen/Like';
 import Search from './screen/Search';
 import PlayList from './screen/Playlist';
+import AddAudio from './screen/AddAudio';
 
 
 export default function Main() {
@@ -52,9 +53,13 @@ export default function Main() {
                         <Link to={"/profile/"+_id}  style={{ textDecoration: 'none' }}>
                             <li className = "li_profile">Hồ sơ</li>
                         </Link> 
+                        <Link to="add"  style={{ textDecoration: 'none' }}>
+                            <li className = "li_profile">Tải lên</li>
+                        </Link> 
                         <li className = "li_profile"
-                       onClick={logout}
-                        >Đăng xuất</li>
+                            onClick={logout}>
+                                Đăng xuất
+                            </li>
                     </ul>
                 </UnopDropdown>
             </div>
@@ -66,6 +71,7 @@ export default function Main() {
                     <Route path='/like' component={Like}/>
                     <Route path='/library' component={Library}/>
                     <Route path='/playlist' component={PlayList}/>
+                    <Route path='/add' component={AddAudio}/>
                 </Switch>
             </div>
         </div>

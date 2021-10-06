@@ -107,16 +107,13 @@ const AuthContextProvider = ({children}) => {
     const UpdateProfile = async UpdateProfile => {
         try {
             const response = await axios.post(`${apiUrl}auth/update/${UpdateProfile.userId.userId}`, UpdateProfile)
-            if(response.data) {
-                dispatch({
-                    type: 'SET_AUTH',
-                    payload: {isAuthenticated: true, user: response.data.user}
-                })
+            if(response.data.user) {
+                loadUser()
                 return response.data
             }
-        } catch(error){
+        } catch(err){
             return({
-                message: error.message
+                message: err.message
             })
         }
     }

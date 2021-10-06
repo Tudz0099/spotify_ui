@@ -29,7 +29,7 @@ export default function Register() {
             return re.test(email);
         }
 
-        var matches = fullName.match(/\d+/g);
+        let matches = fullName.match(/\d+/g);
 
 
     const register = async event => {

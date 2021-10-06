@@ -34,6 +34,7 @@ import './App.css'
 		  <ProtectedRoute exact path='/search' component={Home}/>
 		  <ProtectedRoute exact path='/library' component={Home}/>
 		  <ProtectedRoute exact path='/like' component={Home}/>
+		  <ProtectedRoute exact path='/add' component={Home}/>
 		  				<Route
 						  exact
 						  path='/profile'
@@ -58,6 +59,11 @@ import './App.css'
 						  exact
 						  path='/like'
 						  render={props => <Home {...props} authRoute='like' />}
+						  />
+						  <Route
+						  exact
+						  path='/add'
+						  render={props => <Home {...props} authRoute='add' />}
 						  />
         </Switch>
       </Router>

@@ -1,4 +1,5 @@
 import React, {useContext, useState} from 'react';
+import Images from '../share/Img';
 import { useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,6 +12,7 @@ export default function Profile() {
      const userId = useParams();
 
      const [updateForm, setUpdateForm] = useState({
+        avatar: avatar ? `${apiUrl}${avatar}` : Images.AVT_NONE,
         newEmail: '',
         newPhone: '',
         newName: '',
@@ -26,8 +28,10 @@ export default function Profile() {
 
     function validateEmail() {
         const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
+        return re.test(newEmail);
     }
+
+    let matches = newName.match(/\d+/g);
 
     const update = async event => {
         event.preventDefault()
@@ -36,15 +40,21 @@ export default function Profile() {
             toast.warning("You don't change anything");
             return;
         }
-
-        if(!validateEmail(newEmail)) {
-            toast.error("Unknown email address");
-            return;
-        }else{
-            toast.info("Valid new email !")
-        }
+        if (newEmail.length !== 0) {
+            if(!validateEmail(newEmail)) {
+                toast.error("Unknown email address");
+                return;
+            }else{
+                toast.info("Valid new email !")
+            }
+        }   
 
         if (newName.length !== 0) {
+            if (matches != null) {
+                toast.warning("Your name should not be a number");
+                return;
+            }
+
             if(newName.length < 2) {
                 toast.warning("You should use your real name");
                 return;
@@ -67,13 +77,9 @@ export default function Profile() {
 
         try{
             const updateData = await UpdateProfile(updateForm)
-            if(updateData.data){
-                toast.success("Update successful !")
-            }else{
-                toast.error("Update error !")
-            }
-        } catch (error) {
-            toast.error(error.message)
+            toast.success(updateData.message)
+        } catch (err) {
+            toast.error(err.message)
         } 
     }
 
@@ -81,11 +87,13 @@ export default function Profile() {
         <div className="profile">   
             <div>             
                 <div className = "avatar_profile">
-                    <img src= {apiUrl + avatar} alt={fullName}  sizes="(min-width: 1280px) 232px, 192px"/>
-                    <input type="file" />
+                    <img src= {updateForm.avatar} alt={fullName}  sizes="(min-width: 1280px) 232px, 192px"/>
                 </div>
                 <h1> Tổng quan về tài khoản </h1>
                 <form className="form_change" onSubmit={update}>
+                    <div>
+                        <input type="file" />
+                    </div>
                     <div className="">
                         <label>Tên người dùng</label>
                         <input type="text" name="newName" value={newName} onChange={onChangeForm} placeholder={fullName || 'No information'}  className="form_input"/>

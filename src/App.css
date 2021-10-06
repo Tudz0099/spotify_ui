@@ -468,3 +468,8 @@
 .like_quantity > li {
   margin-right: 25px;
 }
+
+.choose_add {
+  margin-top: 15px;
+  max-width: 450px;
+}
