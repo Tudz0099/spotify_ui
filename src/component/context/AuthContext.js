@@ -104,9 +104,9 @@ const AuthContextProvider = ({children}) => {
 
     //update profile
 
-    const UpdateProfile = async UpdateProfile => {
+    const UpdateProfile = async (UpdateProfile, userId) => {
         try {
-            const response = await axios.post(`${apiUrl}auth/update/${UpdateProfile.userId.userId}`, UpdateProfile)
+            const response = await axios.post(`${apiUrl}auth/update/${userId.userId}`, UpdateProfile)
             if(response.data.user) {
                 loadUser()
                 return response.data
@@ -118,7 +118,22 @@ const AuthContextProvider = ({children}) => {
         }
     }
 
-    const authContextData = {loginUser, RegisterUser, logoutUser, authState, UpdateProfile}
+    //update avatar
+    const UpdateAvatar = async (fileUpdate, userId) => {
+        try {
+            const response = await axios.post(`${apiUrl}auth/avatar/${userId.userId}`,fileUpdate)
+            if(response.data) {
+                loadUser()
+                return response.data
+            }
+        } catch (err) {
+            return({
+                message: err.message
+            })
+        }
+    }
+
+    const authContextData = {loginUser, RegisterUser, logoutUser, authState, UpdateProfile, UpdateAvatar}
 
     return (
         <AuthContext.Provider value={authContextData}>

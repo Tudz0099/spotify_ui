@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
-import Images from '../share/Img';
 import { useParams } from 'react-router-dom';
+import Images from '../share/Img';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { apiUrl } from '../context/constants';
@@ -8,15 +8,14 @@ import {AuthContext} from '../context/AuthContext'
 
 
 export default function Profile() { 
-     const {authState: {user: {fullName, avatar, email, phone,}}, UpdateProfile} = useContext(AuthContext);
-     const userId = useParams();
+    const userId = useParams();
+     const {authState: {user: {fullName, avatar, email, phone,}}, UpdateProfile, UpdateAvatar} = useContext(AuthContext);
 
      const [updateForm, setUpdateForm] = useState({
-        avatar: avatar ? `${apiUrl}${avatar}` : Images.AVT_NONE,
+        avatar: `${apiUrl}${avatar}`,
         newEmail: '',
         newPhone: '',
         newName: '',
-        userId
     })
 
     const {newEmail, newPhone , newName} = updateForm;
@@ -31,7 +30,7 @@ export default function Profile() {
         return re.test(newEmail);
     }
 
-    let matches = newName.match(/\d+/g);
+     let matches = newName.match(/\d+/g);
 
     const update = async event => {
         event.preventDefault()
@@ -76,23 +75,40 @@ export default function Profile() {
         }
 
         try{
-            const updateData = await UpdateProfile(updateForm)
+            const updateData = await UpdateProfile(updateForm, userId)
             toast.success(updateData.message)
+            setUpdateForm({newPhone: '', newName: '', newEmail: ''})
         } catch (err) {
             toast.error(err.message)
         } 
     }
 
+    const handleFileUpload = async (event) => {
+        const formData = new FormData();
+        formData.append("avatar", event.target.files[0]);
+        try {
+          const res = await UpdateAvatar(formData, userId, {
+            headers: {
+              "Content-Type": "multipart/avatar",
+            },
+          });
+          toast.success(res.message)
+        } catch (err) {
+            toast.error(err.message)
+        }
+      };
+        
+
     return (
         <div className="profile">   
             <div>             
                 <div className = "avatar_profile">
-                    <img src= {updateForm.avatar} alt={fullName}  sizes="(min-width: 1280px) 232px, 192px"/>
+                    <img src= {{avatar} ? `${apiUrl}${avatar}` : Images.AVT_NONE} alt={fullName}  sizes="(min-width: 1280px) 232px, 192px"/>
                 </div>
                 <h1> Tổng quan về tài khoản </h1>
                 <form className="form_change" onSubmit={update}>
                     <div>
-                        <input type="file" />
+                        <input type="file"  onChange={handleFileUpload}/>
                     </div>
                     <div className="">
                         <label>Tên người dùng</label>

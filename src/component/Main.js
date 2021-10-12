@@ -53,7 +53,7 @@ export default function Main() {
                         <Link to={"/profile/"+_id}  style={{ textDecoration: 'none' }}>
                             <li className = "li_profile">Hồ sơ</li>
                         </Link> 
-                        <Link to="add"  style={{ textDecoration: 'none' }}>
+                        <Link to={"/add/"+_id}  style={{ textDecoration: 'none' }}>
                             <li className = "li_profile">Tải lên</li>
                         </Link> 
                         <li className = "li_profile"
@@ -70,8 +70,8 @@ export default function Main() {
                     <Route path='/search' component={Search}/>
                     <Route path='/like' component={Like}/>
                     <Route path='/library' component={Library}/>
-                    <Route path='/playlist' component={PlayList}/>
-                    <Route path='/add' component={AddAudio}/>
+                    <Route path='/playlist/:audioId' component={PlayList}/>
+                    <Route path='/add/:userId' component={AddAudio}/>
                 </Switch>
             </div>
         </div>

@@ -12,7 +12,6 @@
   box-sizing: border-box;
 }
 
-
 .description {
   font-size: 0.8rem;
   color: var(--greyText);
@@ -44,7 +43,8 @@
 }
 
 .navBar {
-  width: 260px;
+  width: 22%;
+  max-width: 240px;
   height: 100%;
   background: var(--greyDark);
   padding: 10px;
@@ -126,21 +126,6 @@
   position: relative;
 }
 
-
-.upperMain {
-  background: rgba(33, 33, 33, 0.93);
-  height: 56px;
-  width: calc(100% - 220px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: white;
-  padding: 0.5rem 2rem;
-  position: fixed;
-  top: 0;
-  z-index: 2;
-}
-
 .btn_drop {
   background-color: rgba(0,0,0,.7);
   border: 0;
@@ -155,9 +140,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2px;
 }
-
 
 .btn_drop > figure {
   -webkit-margin-start: 16px;
@@ -229,10 +212,24 @@
 }
 
 .main {
-  width: 100%;
+  width: 80%;
   overflow-y: scroll;
   position: relative;
   padding-top: 3rem;
+}
+
+.upperMain {
+  background: rgba(33, 33, 33, 0.93);
+  height: 56px;
+  width: 81%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  padding: 0.5rem 2rem;
+  position: fixed;
+  top: 0;
+  z-index: 2;
 }
 
 .main::-webkit-scrollbar {
@@ -281,16 +278,64 @@
   transition: all 0.3s ease-in-out;
 }
 
+.card:hover .playIcon {
+  opacity: 1;
+  transform:translateY(-20px);
+  transition: all 0.3s ease-in-out;
+}
 
 .cardImage {
   height: 150px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.3), 0 1px 2px 0 rgba(0,0,0,.2);
 }
 
-.cardImage > img {
+.img_shadow {
+  box-shadow: 0 10px 20px rgba(0,0,0,.3), 0 1px 2px 0 rgba(0,0,0,.2);
+}
+
+.image_size > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.size {
+  width: 80px;
+  height: 80px;
+}
+
+.size > img{
+  border-radius: 5px 0 0 5px;
+}
+
+.horizontal {
+  width: 320px;
+  height: 80px;
+  background: var(--greylighter);
+  border-radius: 5px;
+  align-items: center;
+}
+
+.horizontal:hover .playIcon_horizontal {
+  opacity: 1;
+  transform:translateX(-20px);
+  transition: all 0.3s ease-in-out;
+}
+
+.playIcon_horizontal {
+  display: flex;
+  margin-left: auto;
+  opacity: 0;
+  color: #fff;
+}
+
+.playIcon_horizontal > svg {
+  margin: auto;
+}
+
+.horizontal_title > h3 {
+  margin-left: 15px;
+  color: #fff;
+  font-size: 1rem;
 }
 
 .cardContent {
@@ -303,6 +348,13 @@
   margin-bottom: 0;
   letter-spacing: 0.6px;
   -webkit-line-clamp: 1;
+  color: #fff;
+}
+
+.more_change_img > input{
+  margin-top: 5px;
+  border: none;
+  outline: none;
 }
 
 .playIcon_style {
@@ -313,14 +365,14 @@
   background: var(--greenMain);
 }
 
-
 .playIcon {
   display: flex;
   margin-left: auto;
-  opacity: 1;
+  opacity: 0;
   position: absolute;
   right: 1.2rem;
   bottom: 1.2rem;
+  color: #fff;
 }
 
 .playIcon > svg {
@@ -350,13 +402,13 @@
 
 .avatar_profile > img {
   border-radius: 50%;
-  max-width: 200px;
+  width: 200px;
+  height: 200px;
 }
 
 .form_change > div {
   padding-bottom: 20px;
 }
-
 
 .btn_change > button {
   padding: 13px 31px;
@@ -461,7 +513,7 @@
   flex-direction: column; 
 }
 
-.like_quantity {
+.d_flex {
   display: flex;
 }
 
@@ -472,4 +524,8 @@
 .choose_add {
   margin-top: 15px;
   max-width: 450px;
+}
+
+.play{
+  background: var(--greylighter);
 }

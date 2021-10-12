@@ -19,7 +19,7 @@ export default function Like() {
                     <div className="banner_content">
                         <span className="banner_content_size">PLAYLIST</span>
                         <h1>Bài hát đã thích</h1>
-                        <ul className="like_quantity">
+                        <ul className="d_flex like_quantity">
                             <li className="banner_content_size">{fullName}</li>
                             <li className="banner_content_size">7 bài hát</li>
                         </ul>
