@@ -42,6 +42,10 @@
   }
 }
 
+.pr_30 {
+  padding-left: 30px;
+}
+
 .navBar {
   width: 22%;
   max-width: 240px;
@@ -115,7 +119,7 @@
 }
 
 .musicControls {
-  background: var(--greylighter);
+  background: var(--greyMain);
   text-align: center;
   height: 90px;
   display: flex;
@@ -124,6 +128,17 @@
   color: white;
   z-index: 2;
   position: relative;
+  border-top: 1px solid var(--greyLight);
+}
+
+.musicControls > div > div {
+  background-color: var(--greyMain);
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.mui-player29 > path{
 }
 
 .btn_drop {
@@ -257,17 +272,17 @@
 }
 
 .cardWrapInner {
-  display: flex;
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(164px, 1fr));
   margin-top: 1rem;
 }
 
 .card {
   background: var(--greyLight);
   border-radius: 5px;
-  margin-right: 0.8rem;
-  width: 180px;
-  height: 260px;
   overflow: hidden;
+  height: 270px;
   padding: 1rem 1rem 0.5rem 1rem ;
   box-shadow: 0 5px 15px rgba(0,0,0,.3), 0 1px 2px 0 rgba(0,0,0,.2);
   position: relative;
@@ -527,5 +542,5 @@
 }
 
 .play{
-  background: var(--greylighter);
+  background: var(--greyMain);
 }

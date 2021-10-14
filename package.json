@@ -14,6 +14,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.4",
     "material-ui-audio-player": "^1.7.0",
+    "mui-audio-player": "^1.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-dropdown": "^1.9.2",

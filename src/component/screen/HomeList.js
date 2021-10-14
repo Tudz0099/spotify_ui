@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import Card from '../card/Card';
 import Horizontal from '../card/Horizontal';
 import { AudioContext } from '../context/AudioContext';
@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HomeList() {
     const classes = useStyles();
+    const mainInnerRef = useRef();
     const { 
         audioState: { audios, audiosLoading },
             getAllAudio
@@ -27,6 +28,7 @@ export default function HomeList() {
 
     const [allAudio, setAllAudio] = useState();
     const [loadAudio, setLoadAudio] = useState(false)
+    const [limiter, setLimiter] = useState(0)
 
     useEffect(() => getAllAudio()
         .then((data) => {
@@ -38,21 +40,30 @@ export default function HomeList() {
         }) 
     , [])
 
-        const date = new Date();
-        const h = date.getHours();
-        var session = ''
-        if ( h < 4){
-            session = "Hôm nay của bạn thế nào"
-        } else if ( 4 <= h <= 12) {
-            session = "Một ngày tràn năng lượng"
-        } else if (13 <= h <= 18) {
-            session = "Chào buổi chiều"
-        } else if (h >= 19){
-            session = "Thư giãn cuối ngày"
+    useEffect (() => {
+        const handleWindowResize = () => {
+            const calculation = 
+                Math.floor(mainInnerRef.current.getBoundingClientRect().width / 190); 
+
+            setLimiter(calculation)
         }
 
+        handleWindowResize()
+
+        //add event listener
+        window.addEventListener('resize', handleWindowResize)
+
+        // remove event listener
+        return () => window.removeEventListener('resize', handleWindowResize)
+    }, [])
+
+        const date = new Date();
+        const h = date.getHours();
+        let session = h < 12 ? 'Chào buổi sáng' : 'Chào buổi chiều'
+        
+
     return (
-        <div>
+        <div className = "pr_30" ref={mainInnerRef}>
                 <div className="cardsWrap">
                     <h1 >{session}</h1>
                     <div className="cardWrapInner">
@@ -64,13 +75,14 @@ export default function HomeList() {
                     <p className="description">Thêm nhiều gợi ý hay hơn khi bạn nghe nhiều hơn.</p>
                     <div className="cardWrapInner">
                         {loadAudio ? (
-                            audios.map(item => (
+                            allAudio.map(item => (
                                 <div key={item._id}>                         
-                                    <Card title = {item.title}
-                                          id= {item._id}
-                                          description= {item.description}/>
+                                    <Card
+                                        title = {item.title}
+                                        id= {item._id}
+                                        description= {item.description}/>
                                 </div>
-                            ))
+                            )).slice(0, limiter)
                         ) : (
                             <div className={classes.root}>
                                  <CircularProgress />
@@ -83,7 +95,7 @@ export default function HomeList() {
                     <p className="description">Thêm nhiều gợi ý hay hơn khi bạn nghe nhiều hơn.</p>
                     <div className="cardWrapInner">
                         {loadAudio ? (
-                            audios.map(item => (
+                            allAudio.map(item => (
                                 <div key={item._id}>                         
                                     <Card title = {item.title}
                                           id= {item._id}
