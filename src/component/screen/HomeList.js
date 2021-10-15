@@ -4,6 +4,7 @@ import Horizontal from '../card/Horizontal';
 import { AudioContext } from '../context/AudioContext';
 import { makeStyles } from '@material-ui/core/styles';
 import {CircularProgress} from '@material-ui/core';
+import { Category } from '@mui/icons-material';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,13 +24,16 @@ export default function HomeList() {
     const mainInnerRef = useRef();
     const { 
         audioState: { audios, audiosLoading },
-            getAllAudio
+            getAllAudio, AudioByCateGory
         } = useContext(AudioContext)
 
     const [allAudio, setAllAudio] = useState();
+    const [Electronic, setElectronic] = useState();
     const [loadAudio, setLoadAudio] = useState(false)
+    const [loadElectronic, setLoadElectronic] = useState(false)
     const [limiter, setLimiter] = useState(0)
 
+    // get all audio
     useEffect(() => getAllAudio()
         .then((data) => {
             setAllAudio(data.audios)
@@ -37,9 +41,22 @@ export default function HomeList() {
         })
         .catch((err) => {
             console.log(err.message)
-        }) 
+        })
     , [])
 
+    // get audio by category
+    useEffect(() => AudioByCateGory("Electronic")
+        .then((data) => {
+            setElectronic(data.audio)
+            setLoadElectronic(true)
+        })  
+        .catch((err) => {
+            console.log(err.message)
+        })  
+    , []) 
+
+     
+    // responsive
     useEffect (() => {
         const handleWindowResize = () => {
             const calculation = 
@@ -57,11 +74,12 @@ export default function HomeList() {
         return () => window.removeEventListener('resize', handleWindowResize)
     }, [])
 
-        const date = new Date();
-        const h = date.getHours();
-        let session = h < 12 ? 'Chào buổi sáng' : 'Chào buổi chiều'
-        
 
+    // time
+    const date = new Date();
+    const h = date.getHours();
+    let session = h < 12 ? 'Chào buổi sáng' : 'Chào buổi chiều'
+        
     return (
         <div className = "pr_30" ref={mainInnerRef}>
                 <div className="cardsWrap">
@@ -91,17 +109,17 @@ export default function HomeList() {
                     </div>    
                 </div>
                 <div className="cardsWrap">
-                    <h2>Dành cho bạn</h2>
+                    <h2>Nhạc điện tử</h2>
                     <p className="description">Thêm nhiều gợi ý hay hơn khi bạn nghe nhiều hơn.</p>
                     <div className="cardWrapInner">
-                        {loadAudio ? (
-                            allAudio.map(item => (
+                        {loadElectronic ? (
+                            Electronic.map(item => (
                                 <div key={item._id}>                         
                                     <Card title = {item.title}
                                           id= {item._id}
                                           description= {item.description}/>
                                 </div>
-                            ))
+                            )).slice(0, limiter)
                         ) : (
                             <div className={classes.root}>
                                  <CircularProgress />

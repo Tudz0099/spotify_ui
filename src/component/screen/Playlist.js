@@ -1,9 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import { PlayAudioContext } from '../context/PlayContext'
+import { AudioContext } from '../context/AudioContext';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import Images from '../share/Img';
+import ListAudio from '../card/ListAudio';
 import {ReactComponent as LikeIcon} from '../share/icons/like_icon.svg';
 import {ReactComponent as More} from '../share/icons/more_icon.svg';
 import {ReactComponent as Play} from '../share/icons/play.svg';
@@ -28,6 +30,7 @@ export default function PlayList() {
     const audioId = useParams();
 
     const { GetDataAudio } = useContext(PlayAudioContext)
+    const { audioState: {audios} } = useContext(AudioContext)
 
     const [audio, setAudio] = useState();
     const [isLoading, setIsLoading] = useState(true)
@@ -37,8 +40,7 @@ export default function PlayList() {
             setAudio(data)
             setIsLoading(false)
         })    
-        , [])
-    //console.log(audio.title)
+        , [audioId])
     return (
         <div className="playlist">
             {isLoading ? (
@@ -71,56 +73,14 @@ export default function PlayList() {
                             </div>
                         </Popup>
                     </div>
-                    <div className="playlist_list">
-                        <ul>
-                            <li>
-                                <span></span>
-                                <div className="song_detail">
-                                    <h3>Điêu Toa</h3>
-                                    <span>Masew</span>
+                      {audios.map(item => (
+                                <div key={item._id}>                         
+                                    <ListAudio 
+                                          title = {item.title}
+                                          id= {item._id}
+                                          singer= {item.singer}/>
                                 </div>
-                                <div className="song_time">
-                                    <span>4:00</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="song_detail">
-                                    <h3>Điêu Toa</h3>
-                                    <span>Masew</span>
-                                </div>
-                                <div className="song_time">
-                                    <span>4:00</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="song_detail">
-                                    <h3>Điêu Toa</h3>
-                                    <span>Masew</span>
-                                </div>
-                                <div className="song_time">
-                                    <span>4:00</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="song_detail">
-                                    <h3>Điêu Toa</h3>
-                                    <span>Masew</span>
-                                </div>
-                                <div className="song_time">
-                                    <span>4:00</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="song_detail">
-                                    <h3>Điêu Toa</h3>
-                                    <span>Masew</span>
-                                </div>
-                                <div className="song_time">
-                                    <span>4:00</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                            ))}
                     <div className="end_list">
                         <span>© 2000 Atlantic Record Corporation for the United States and WEA International Inc. for the world outside of the United States</span>
                         <span>℗ 2000 Atlantic Recording Corporation for the United States and WEA International Inc. for the world outside of the United States.</span>

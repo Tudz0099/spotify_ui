@@ -1,49 +1,46 @@
 import React, {useContext, useState, useEffect} from 'react';
 import { apiUrl } from '../component/context/constants';
+import Images from '../component/share/Img';
 import Nav from '../component/screen/Nav';
 import Main from '../component/Main';
 import { PlayAudioContext } from '../component/context/PlayContext';
-import Grid from '@material-ui/core/Grid';
-import pink from "@material-ui/core/colors/pink";
-import deepPurple from "@material-ui/core/colors/deepPurple";
-import { createTheme } from "@material-ui/core/styles";
-import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider";  
-import { AudioPlayer } from 'mui-audio-player';
-import { green } from '@material-ui/core/colors';
+import ReactAudioPlayer from 'react-audio-player';
+import {ReactComponent as Control} from '../component/share/icons/control.svg';
 
-const theme = createTheme({
-  palette: {
-      type: 'dark',
-      primary:green,
-      secondary: green
-  }
-});
 
 export default function Home() {
-  const { audioPlay: {audio} } = useContext(PlayAudioContext)
+  const { audioPlay: {audio, title, singer} } = useContext(PlayAudioContext)
   const [audioFile, setAudioFile] = useState();
+  const [titleDetail, setTitleDetail] = useState()
+  const [singerDetail, setSingerDetail] = useState()
 
   useEffect(() => {setAudioFile(audio)}, [audio])
-  console.log(audioFile)
- 
+  useEffect(() => {setTitleDetail(title)}, [title])
+  useEffect(() => {setSingerDetail(singer)}, [singer])
+
     return ( 
-        <div className="outerWrap">
+        <div className="outerWrap"> 
         <div className = "App">
           <Nav/>
           <Main/>
         </div>
         <div className="musicControls">
-        <ThemeProvider >
-                <Grid justify="center"  alignContent="center" alignItems="center" container style={{maxWidth: "400px"}}>
-                        <AudioPlayer 
-                            src={apiUrl + audioFile}
-                            autoPlay={true}
-                            rounded={true}
-                            elevation={1}
-                            width="100%"
-                        />
-                </Grid>
-            </ThemeProvider>
+          <div className="play_detail d_flex">
+            <img
+              src = {Images.MUSIC_DISC}
+              alt = ''
+            />
+            <div className="box_detail d_flex">
+              <div className="detail_title">{titleDetail}</div>
+              <div className="detail_singer">{singerDetail}</div>
+            </div>
+          </div>
+          <ReactAudioPlayer
+            src={apiUrl + audioFile}
+            autoPlay
+            controls
+          />
+          <Control/>
         </div>
       </div>
     )

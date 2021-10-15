@@ -13,6 +13,7 @@ import Like from './screen/Like';
 import Search from './screen/Search';
 import PlayList from './screen/Playlist';
 import AddAudio from './screen/AddAudio';
+import YourSong from './screen/YourSong';
 
 
 export default function Main() {
@@ -72,6 +73,7 @@ export default function Main() {
                     <Route path='/library' component={Library}/>
                     <Route path='/playlist/:audioId' component={PlayList}/>
                     <Route path='/add/:userId' component={AddAudio}/>
+                    <Route path='/yourSong' component={YourSong}/>
                 </Switch>
             </div>
         </div>

@@ -24,6 +24,7 @@ import PlayAudioContextProvider, { PlayAudioContext } from "./component/context/
 								<ProtectedRoute exact path='/library' component={Home}/>
 								<ProtectedRoute exact path='/like' component={Home}/>
 								<ProtectedRoute exact path='/add/:userId' component={Home}/>
+								<ProtectedRoute exact path='/yourSong' component={Home}/>
 								<Route
 									exact
 									path='/login'
@@ -68,6 +69,11 @@ import PlayAudioContextProvider, { PlayAudioContext } from "./component/context/
 								exact
 								path='/add'
 								render={props => <Home {...props} authRoute='add' />}
+								/>
+								<Route
+								exact
+								path='/yourSong'
+								render={props => <Home {...props} authRoute='yourSong' />}
 								/>
 				</Switch>
 			</Router>

@@ -2,14 +2,16 @@ import { PLAY_AUDIO } from "../context/constants"
 
 export const PlayReducer = (state, action) => {
     const {type, 
-        payload: {audio, status}
+        payload: {audio, title, singer, status}
     } = action
     switch(type) {
         case PLAY_AUDIO:
             return {
                 ...state,
                 audio,
-                status,
+                title,
+                singer,
+                status
             }
 
         default:

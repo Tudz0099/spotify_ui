@@ -1,6 +1,7 @@
 import React, {useContext} from 'react'
 import { AuthContext } from '../context/AuthContext';
 import Images from '../share/Img';
+import ListAudio from '../card/ListAudio';
 import {ReactComponent as Play} from '../share/icons/play.svg';
 
 
@@ -29,56 +30,7 @@ export default function Like() {
                     <div className="icon_play">
                         <Play className="playIcon_style"/>
                     </div>
-                    <div className="playlist_list">
-                        <ul>
-                            <li>
-                                <span></span>
-                                <div className="song_detail">
-                                    <h3>Điêu Toa</h3>
-                                    <span>Masew</span>
-                                </div>
-                                <div className="song_time">
-                                    <span>4:00</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="song_detail">
-                                    <h3>Điêu Toa</h3>
-                                    <span>Masew</span>
-                                </div>
-                                <div className="song_time">
-                                    <span>4:00</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="song_detail">
-                                    <h3>Điêu Toa</h3>
-                                    <span>Masew</span>
-                                </div>
-                                <div className="song_time">
-                                    <span>4:00</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="song_detail">
-                                    <h3>Điêu Toa</h3>
-                                    <span>Masew</span>
-                                </div>
-                                <div className="song_time">
-                                    <span>4:00</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="song_detail">
-                                    <h3>Điêu Toa</h3>
-                                    <span>Masew</span>
-                                </div>
-                                <div className="song_time">
-                                    <span>4:00</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                    <ListAudio/>
                 </div>
             </div>
         </div>

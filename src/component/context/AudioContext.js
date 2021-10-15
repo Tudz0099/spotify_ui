@@ -62,8 +62,38 @@ const AudioContextProvider = ({children}) => {
         }
     }
 
+    // get audio by user
+
+    const AudioByUser = async userId => {
+        try {
+            const response = await axios.get(`${apiUrl}audio/audioByUser/${userId}`)
+            if (response.data) {
+                return response.data
+            }
+        } catch (err) {
+            return err.message
+            ? err.message
+            : {message: "sever error"}
+        }
+    }
+
+    // get audio by category
+
+    const AudioByCateGory = async category => {
+        try {
+            const response = await axios.get(`${apiUrl}audio/audioByCategory/${category}`) 
+            if (response.data) {
+                return response.data
+            }
+        } catch (err) {
+            return err.message
+            ? err.message
+            : {message: "Sever error"}
+        }
+    }
+
     //audio context data
-    const AudioContextData = {audioState, getAllAudio, AddAudio, GetOneAudio}
+    const AudioContextData = {audioState, getAllAudio, AddAudio, GetOneAudio, AudioByUser, AudioByCateGory}
 
     return (
         <AudioContext.Provider value={AudioContextData}>

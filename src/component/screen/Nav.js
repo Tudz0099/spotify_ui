@@ -40,10 +40,10 @@ export default function Nav() {
                 </ul>
                 
                 <ul className = "nav_list">
-                    <Link style={{ textDecoration: 'none' }}>
+                    <Link to="/yourSong" style={{ textDecoration: 'none' }}>
                         <li>
                             <PlayList/>
-                            Tạo playlist
+                            Your Song
                         </li>
                     </Link>
                     <Link to="/like" style={{ textDecoration: 'none' }}>

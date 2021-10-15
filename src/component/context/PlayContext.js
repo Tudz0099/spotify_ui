@@ -8,6 +8,8 @@ export const PlayAudioContext = createContext()
 const PlayAudioContextProvider = ({children}) => {
     const [audioPlay, dispatch] = useReducer(PlayReducer, {
         audio: null,
+        title: null,
+        singer: null,
         status: false
     })
 
@@ -18,7 +20,12 @@ const PlayAudioContextProvider = ({children}) => {
             if (response.data) {
                 dispatch({
                     type:PLAY_AUDIO,
-                    payload: {audio:response.data.music, status: true}
+                    payload: {
+                        audio:response.data.music,
+                        title:response.data.title,
+                        singer:response.data.singer,
+                        status: true
+                    }
                 })
                 return response.data
             }
@@ -28,6 +35,7 @@ const PlayAudioContextProvider = ({children}) => {
             : {message: "sever error"}
         }
     }
+    useEffect(() => { GetDataAudio(); }, []);
 
     // play audio context data
     const PlayAudioData = {audioPlay, GetDataAudio}

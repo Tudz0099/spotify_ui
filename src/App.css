@@ -124,21 +124,37 @@
   height: 90px;
   display: flex;
   align-items: center;
-  justify-content: center;
   color: white;
   z-index: 2;
   position: relative;
   border-top: 1px solid var(--greyLight);
+  padding: 0 20px;
+  justify-content: space-between;
 }
 
-.musicControls > div > div {
-  background-color: var(--greyMain);
-  border: none;
-  outline: none;
-  box-shadow: none;
+.musicControls > svg {
+  color: #fff;
 }
 
-.mui-player29 > path{
+.box_detail {
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 15px;
+  text-align: left;
+}
+
+.play_detail > img{
+  width: 60px;
+  height: 60px;
+}
+
+.detail_title {
+  font-size: 0.9rem;
+}
+
+.detail_singer{
+  font-size: 0.7rem;
+  color: var(--greyText);
 }
 
 .btn_drop {
@@ -490,11 +506,7 @@
   margin-right: 20px;
 }
 
-.playlist_list > ul {
-  padding-left: 0;
-}
-
-.playlist_list > ul > li {
+.playlist_list > li {
   list-style-type: none;
   width: 100%;
   padding: 0.5rem;
@@ -502,7 +514,7 @@
   align-items: center;
 }
 
-.playlist_list > ul > li:hover{
+.playlist_list > li:hover{
   background-color: var(--greylighter);
   border-radius: 5px;
 }
@@ -510,6 +522,7 @@
 .song_detail > h3 {
   margin: 0;
   font-weight: 400;
+  color: #fff;
 }
 
 .song_detail > span {
@@ -519,6 +532,7 @@
 
 .song_time {
   margin-left: auto;
+  color: #fff;
 }
 
 .end_list {
@@ -539,8 +553,4 @@
 .choose_add {
   margin-top: 15px;
   max-width: 450px;
-}
-
-.play{
-  background: var(--greyMain);
 }
