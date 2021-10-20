@@ -9,7 +9,6 @@ import { Category } from '@mui/icons-material';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      height: '100vh',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -28,6 +27,7 @@ export default function HomeList() {
         } = useContext(AudioContext)
 
     const [allAudio, setAllAudio] = useState();
+    const [randomAudio, setRandomAudio] = useState();
     const [Electronic, setElectronic] = useState();
     const [loadAudio, setLoadAudio] = useState(false)
     const [loadElectronic, setLoadElectronic] = useState(false)
@@ -36,7 +36,10 @@ export default function HomeList() {
     // get all audio
     useEffect(() => getAllAudio()
         .then((data) => {
-            setAllAudio(data.audios)
+            const audio = data.audios
+            const random = audio[Math.floor(Math.random() * audio.length)];
+            setAllAudio(audio)
+            setRandomAudio(random)
             setLoadAudio(true)
         })
         .catch((err) => {
@@ -85,8 +88,17 @@ export default function HomeList() {
                 <div className="cardsWrap">
                     <h1 >{session}</h1>
                     <div className="cardWrapInner">
-                        <Horizontal/>
-                    </div>    
+                        {loadAudio ? (  
+                                <div>                         
+                                    <Horizontal id= {randomAudio._id}/>
+                                </div>
+
+                        ):(
+                            <div className={classes.root}>
+                            <CircularProgress />
+                       </div>
+                        )} 
+                    </div>     
                 </div>
                 <div className="cardsWrap">
                     <h2>Dành cho bạn</h2>

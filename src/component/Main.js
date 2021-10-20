@@ -1,6 +1,7 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 import { apiUrl } from './context/constants';
+import Images from './share/Img';
 import UnopDropdown from "unop-react-dropdown";
 import {ReactComponent as ArrLeft} from './share/icons/arr_left.svg';
 import {ReactComponent as ArrRight} from './share/icons/arr_right.svg';
@@ -22,10 +23,17 @@ export default function Main() {
     logoutUser
     } = useContext(AuthContext)
 
+    const [avatarUrl, setAvatarUrl] = useState()
+
     const logout = () => {
         logoutUser()
     }
 
+    useEffect(() => {
+        const avtUrl = !avatar ? Images.AVT_NONE : apiUrl + avatar
+        setAvatarUrl(avtUrl)
+    }, [avatar])
+  
     
     return (
         <div className="main">
@@ -41,13 +49,13 @@ export default function Main() {
                 <UnopDropdown trigger={
                     <button className = "btn_drop">
                         <figure>
-                        <img src= {apiUrl + avatar}
+                        <img src= {avatarUrl}
                             alt="avatar"
                         />
                     </figure>
                     <span>{fullName}</span>
                     <ArrDrop/>
-                    </button>
+                    </button> 
                 }>
                     <ul className= "drop_item">
                         <li className = "li_profile">Tài khoản</li>

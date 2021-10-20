@@ -3,9 +3,9 @@ import {Link} from 'react-router-dom'
 import Images from '../share/Img'
 import {ReactComponent as PlayIcon} from '../share/icons/play.svg'
 
-export default function Horizontal() {
+export default function Horizontal(props) {
     return (
-        <Link to={'/playlist'} style={{ textDecoration: 'none', color: "#616467" }}>
+        <Link to={'/playlist/'+props.id} style={{ textDecoration: 'none', color: "#616467" }}>
             <div className="horizontal d_flex">
                 <div className="img_shadow image_size size">
                     <img 
@@ -14,7 +14,7 @@ export default function Horizontal() {
                     />
                 </div>
                 <div className="horizontal_title d_flex">
-                    <h3>Massew</h3>
+                    <h3>Welcome to spotify</h3>
                 </div>
                 <span className="playIcon_horizontal playIcon_style"> <PlayIcon className="icon_play"/> </span>
             </div>

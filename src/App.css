@@ -554,3 +554,31 @@
   margin-top: 15px;
   max-width: 450px;
 }
+
+.isLike{
+  color: var(--greenMain);
+}
+
+.search {
+  padding: 20px 30px;
+}
+
+.form_search {
+  width: 370px;
+  height: 40px;
+  align-items: center;
+  background: #fff;
+  border-radius: 50px;
+  padding: 5px 10px;
+}
+
+.form_search > input {
+  width: 100%;
+  border: none;
+  outline: none;
+  margin-left: 10px;
+}
+
+.form_search > svg {
+  color: #040404;
+}

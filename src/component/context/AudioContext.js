@@ -92,8 +92,61 @@ const AudioContextProvider = ({children}) => {
         }
     }
 
+    // like audio
+
+    const likeAudioApi = async audioId => {
+        try {
+            const response = await axios.put(`${apiUrl}audio/like/${audioId.audioId}`)
+            if (response.data) {
+                return response.data
+            }
+        } catch (err) {
+            return err.message
+            ? err.message
+            : {message: "Sever error"}
+        }
+    }
+
+    // unlike audio
+
+    const unlikeAudioApi = async audioId => {
+        try {
+            const response = await axios.put(`${apiUrl}audio/unLike/${audioId.audioId}`)
+            if (response.data) {
+                return response.data
+            }
+        } catch (err) {
+            return err.message
+            ? err.message
+            : {message: "Sever error"}
+        }
+    }
+
+    // get like audio by user
+
+    const getLikeAudio = async () => {
+        try{
+            const response = await axios.get(`${apiUrl}audio/getLikeAudio`)
+            if (response.data) {
+                return response.data
+            }
+        } catch(err) {
+            return err.message
+            ? err.message
+            : {message: "Sever error"}
+        }
+    }
+
     //audio context data
-    const AudioContextData = {audioState, getAllAudio, AddAudio, GetOneAudio, AudioByUser, AudioByCateGory}
+    const AudioContextData = {audioState, 
+                            getAllAudio, 
+                            AddAudio, 
+                            GetOneAudio, 
+                            AudioByUser, 
+                            AudioByCateGory, 
+                            likeAudioApi, 
+                            unlikeAudioApi,
+                            getLikeAudio}
 
     return (
         <AudioContext.Provider value={AudioContextData}>

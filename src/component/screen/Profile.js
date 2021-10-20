@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import Images from '../share/Img';
 import { ToastContainer, toast } from 'react-toastify';
@@ -17,6 +17,13 @@ export default function Profile() {
         newPhone: '',
         newName: '',
     })
+
+    const [avatarUrl, setAvatarUrl] = useState()
+
+    useEffect(() => {
+        const avtUrl = !avatar ? Images.AVT_NONE : apiUrl + avatar
+        setAvatarUrl(avtUrl)
+    }, [avatar])
 
     const {newEmail, newPhone , newName} = updateForm;
     const onChangeForm = (event) => {
@@ -103,7 +110,7 @@ export default function Profile() {
         <div className="profile">   
             <div>             
                 <div className = "avatar_profile">
-                    <img src= {{avatar} ? `${apiUrl}${avatar}` : Images.AVT_NONE} alt={fullName}  sizes="(min-width: 1280px) 232px, 192px"/>
+                    <img src= {avatarUrl} alt={fullName}  sizes="(min-width: 1280px) 232px, 192px"/>
                 </div>
                 <h1> Tổng quan về tài khoản </h1>
                 <form className="form_change" onSubmit={update}>
