@@ -90,7 +90,7 @@ export default function HomeList() {
                     <div className="cardWrapInner">
                         {loadAudio ? (  
                                 <div>                         
-                                    <Horizontal id= {randomAudio._id}/>
+                                    <Horizontal id= {randomAudio?._id}/>
                                 </div>
 
                         ):(

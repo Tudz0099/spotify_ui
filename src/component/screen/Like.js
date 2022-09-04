@@ -58,7 +58,7 @@ export default function Like() {
                                 <CircularProgress />
                             </div>
                             ) : (
-                                <div>{audio.length} bài hát</div>
+                                <div>{audio?.length} bài hát</div>
                             )}
                             </li>
                         </ul>
@@ -73,7 +73,7 @@ export default function Like() {
                          <CircularProgress />
                      </div>
                     ):(
-                         audio.map(item => (
+                         audio?.map(item => (
                                 <div key={item._id}>                         
                                     <ListAudio 
                                           title = {item.title}

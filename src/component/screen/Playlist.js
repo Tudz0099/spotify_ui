@@ -62,7 +62,7 @@ export default function PlayList() {
         .then((data) => { 
             setAudio(data)
             setIsLoading(false)
-            for (let i = 0; i < data.likes.length; i++) {
+            for (let i = 0; i < data?.likes?.length; i++) {
                 if (data.likes[i].user === _id) {
                     setLikeAudio(false)
                 }else {
